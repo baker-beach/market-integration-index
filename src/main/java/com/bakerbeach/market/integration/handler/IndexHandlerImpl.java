@@ -15,8 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.bakerbeach.market.index.model.IndexContext;
 import com.bakerbeach.market.index.service.XIndexService;
-import com.bakerbeach.market.integration.model.IndexContext;
+import com.bakerbeach.market.integration.model.ContextMap;
 import com.bakerbeach.market.xcatalog.model.Product;
 import com.bakerbeach.market.xcatalog.service.XCatalogService;
 
@@ -26,11 +27,11 @@ public class IndexHandlerImpl extends AbstractHandler implements AggregationStra
 	private static Integer chunkSize = DEFAULT_GTIN_CHUNK_SIZE;
 
 	@Autowired
-	protected Map<String, IndexContext> contextMap;
-
+	protected ContextMap contextMap;
+	
 	@Autowired
 	protected XCatalogService catalogService;
-
+	
 	@Autowired
 	private XIndexService indexService;
 
@@ -68,6 +69,7 @@ public class IndexHandlerImpl extends AbstractHandler implements AggregationStra
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void index(Exchange ex) {
 		try {
 			log.info("index : " + ex.getIn().getBody());
@@ -79,12 +81,9 @@ public class IndexHandlerImpl extends AbstractHandler implements AggregationStra
 			List<String> codes = (List<String>) payload.get("codes");
 
 			List<Product> products = catalogService.rawByGtin(shop, status, codes);
-
 			IndexContext context = contextMap.get(shop);
-
-			indexService.index(products, shop, status, lastUpdate, context.getLocales(), context.getCurrencies(),
-					context.getPriceGroups());
-
+			indexService.index(products, status, lastUpdate, context);
+			
 			System.out.println("test");
 
 		} catch (Exception e) {
