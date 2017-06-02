@@ -10,7 +10,7 @@
 	<artifactId>market-integration-index</artifactId>
 	<name>market-integration-index</name>
 	<packaging>jar</packaging>
-	<version>0.9.0</version>
+	<version>3.0.0</version>
 	<properties>
 	<!-- 
 		<org.springframework.version>4.1.4.RELEASE</org.springframework.version>
@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>com.bakerbeach.market</groupId>
 			<artifactId>market-index</artifactId>
-			<version>[1.0.0,1.1.0)</version>
+			<version>[3.0.0,3.1.0)</version>
 		</dependency>
 	
 		<!--
@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>com.bakerbeach.market</groupId>
 			<artifactId>market-translation</artifactId>
-			<version>[1.0.0,1.1.0)</version>
+			<version>[3.0.0,3.1.0)</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
